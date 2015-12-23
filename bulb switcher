@@ -1,0 +1,62 @@
+public void Main()
+{
+  int n = 9999999;
+  Console.WriteLine(BulbSwitch(n));
+
+}
+
+ public static int BulbSwitch(int n) {
+        
+        if(n == 0)
+            return 0;
+        if(n == 1)
+            return 1;
+        
+        bool [] bulbs = new bool[n];
+        
+        for(int j =0;j<bulbs.Length;++j)
+        {
+            bulbs[j] = false;
+        }
+        
+   		for(int j = 1;j<bulbs.Length;j++)
+           bulbs[j-1] = true;
+   		
+        int i = 2;
+        
+        while(i <= n)
+        {  
+                
+            if(i == 2)
+            {
+                for(int j = i ; j< n ;j+=2)
+                    bulbs[j-1] = false;
+            }
+            
+            else
+            {
+                Toggle(i, ref bulbs, n);
+            }
+            
+           
+          i++;
+              
+        }
+        
+        int count = bulbs.Where(x=>x == true).ToArray().Count();
+   	    return count;
+        
+    }
+    
+    public static void Toggle(int i, ref bool[] bulbs, int n)
+    {
+       int round =0;
+       for(round = i; round < n ; round+=i)
+       {
+           if(bulbs[round-1] == true)
+             	bulbs[round-1] = false;
+           else
+                bulbs[round-1] = true;
+       }
+       
+    }
