@@ -1,0 +1,16 @@
+public class Solution {
+    public int MissingNumber(int[] nums) {
+        
+        if(nums.Length == 0)
+            return 0;
+        
+        int length = nums.Length;
+  
+        int total = (length)*(length+1)/2;
+  
+        for(int i = 0; i< length;i++)
+            total = total - nums[i];
+  
+        return total;
+    }
+}
