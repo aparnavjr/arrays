@@ -1,0 +1,46 @@
+<summary>
+Chceck if happy number
+</summary>
+<param name = n>Number to be checked</param>
+<returns>True or false</returns>
+
+public class Solution {
+    public bool IsHappy(int n) {
+        
+      //Validation for n = 0 or 1 
+        if(n == 0)
+            return false;
+        if(n == 1)
+            return true;
+            
+        int sum =0;
+  		bool[] visited = new bool[Int16.MaxValue];
+        while(n!=0)
+        {
+            while(n!=0)
+            {
+                int rem =  n%10;
+                sum+=(rem*rem);
+                n = n/10;
+            }
+            
+            //If sum is not seen before add to visited map
+          	if(visited[sum] == false)
+            {
+              visited[sum]= true;
+              n = sum;
+              sum = 0;
+              if(n == 1)
+                return true;
+            }
+          	//Already visited
+            else
+            {
+              return false;
+            }
+           
+        }
+       
+      return false;
+    }
+}
