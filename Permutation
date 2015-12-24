@@ -1,0 +1,37 @@
+public class Solution {
+    
+public IList<IList<int>> Permute(int[] nums) {
+        
+        IList<IList<int>> result = new List<IList<int>>();
+                
+        helper(nums,0,nums.Length,ref result);
+  
+  		Console.WriteLine(result.Count);
+  		return result;
+    }
+    
+    public void helper (int[] nums, int start, int len , ref IList<IList<int>> result)
+    {
+        if(start == len)
+        {
+          	result.Add(nums.ToList());          	
+            return;
+        }
+      
+        for(int i = start;i < nums.Length; i++)
+        {
+          swap(start,i,ref nums);
+          helper(nums,start+1,len, ref result);
+          swap(start,i,ref nums);
+        }
+      
+      
+    }
+
+   public static void swap(int start, int i , ref int[] nums)
+   {
+      int temp = nums[start];
+      nums[start] = nums[i];
+      nums[i] = temp;
+   }
+}
