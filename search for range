@@ -1,0 +1,45 @@
+public class Solution {
+    public int[] SearchRange(int[] nums, int target) {
+        
+        int[] res = new int[]{-1,-1};
+        
+        if(nums.Length == 0)
+            return res;
+            
+        int low = 0; int high = nums.Length-1;
+        
+        while(low <= high)
+        {
+        
+        int mid = (high - low)+low/2;
+        int left = 0;int right = 0;
+        
+        if(nums[mid] == target)
+        {
+            left = mid;
+            right = mid;
+            
+            while(left-1 >= low && nums[left-1] == target)
+                left--;
+            while(right + 1 <= high && nums[right+1] == target)
+                right++;
+        
+        
+        res[0] = left;
+        res[1] = right;
+        
+        break;
+        
+        }
+        
+        if(target > nums[mid])
+            low = mid+1;
+        else
+            high = mid-1;
+        
+            
+        }
+        
+        return res;
+    }
+}
