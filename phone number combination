@@ -1,0 +1,44 @@
+public class Solution {
+    public IList<string> LetterCombinations(string digits) {
+        
+        List<string> res = new List<string>();
+        List<string> prev = new List<string>();
+        
+        if(digits == null || String.IsNullOrEmpty(digits))
+            return res;
+            
+        Dictionary<char,string> map = new Dictionary<char,string>();
+        map.Add('1'," ");
+        map.Add('2',"abc");
+        map.Add('3',"def");
+        map.Add('4',"ghi");
+        map.Add('5',"jkl");
+        map.Add('6',"mno");
+        map.Add('7',"pqrs");
+        map.Add('8',"tuv");
+        map.Add('9',"wxyz");
+        
+        
+        res.Add("");
+        
+        foreach(char dg in digits)
+        {
+            foreach(string list in res)
+            {
+                string letters = map[dg];
+                for(int j = 0; j < letters.Length;j++)
+                {
+                    prev.Add(list+ letters[j]);
+                }
+                
+               
+            }
+            
+             res = prev;
+            prev = new List<string>();
+        }
+        
+        return res;
+        
+    }
+}
