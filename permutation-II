@@ -1,0 +1,57 @@
+public class Solution {
+    public IList<IList<int>> PermuteUnique(int[] nums) {
+        
+        List<IList<int>> result = new List<IList<int>>();
+        if(nums.Length == 0)
+            return result;
+        
+        
+        List<int> list = new List<int>();
+        permutate(nums,0,nums.Length,ref result);
+        
+        return result;
+        
+    }
+    
+    public static void permutate(int [] array, int curr,int n ,ref List<IList<int>> output)
+    {
+    	if(curr == n )
+        {
+        
+          output.Add(new List<int>(array));
+          return;
+        }
+        else
+        {
+        	for(int i = curr; i < array.Length ;i++)
+            {
+                if(containsDuplicate(array,curr,i))
+                {
+                	int temp = array[curr];
+                    array[curr] = array[i];
+                    array[i] = temp;
+                  
+                  	permutate(array, curr+1 , n,ref output);
+                  
+                  	temp = array[curr];
+                    array[curr] = array[i];
+                    array[i] = temp;
+                }
+            }
+             
+        }
+
+    }
+    
+    public static bool containsDuplicate(int[] arr, int start, int end) {
+	for (int i = start; i <= end-1; i++) {
+		if (arr[i] == arr[end]) {
+			return false;
+		}
+	}
+	return true;
+}
+ 
+
+   
+}
