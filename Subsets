@@ -1,0 +1,25 @@
+public class Solution {
+    public IList<IList<int>> Subsets(int[] nums) {
+        
+        IList<IList<int>> result = new List<IList<int>>();
+        if(nums.Length == 0)
+            return result;
+            
+        List<int> temp = new List<int>();
+        Array.Sort(nums);
+        helper(nums,0,temp, ref result);
+        return result;
+        
+    }
+    
+    public static void helper(int[] nums, int pos, List<int> temp , ref IList<IList<int>> result)
+    {
+        result.Add(new List<int>(temp));
+        for(int i = pos; i < nums.Length; i++)
+        {
+            temp.Add(nums[i]);
+            helper(nums,i+1,temp, ref result);
+            temp.RemoveAt(temp.Count-1);
+        }
+    }
+}
