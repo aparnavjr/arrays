@@ -1,0 +1,38 @@
+public class Solution {
+    public string LargestNumber(int[] nums) {
+        
+        if(nums.Length == 0)
+            return "";
+            
+        string[] result = nums.Select(x=>x.ToString()).ToArray();
+        
+        ReverseCompare objt = new ReverseCompare();
+        Array.Sort(result,objt);
+        
+        StringBuilder buff = new StringBuilder();
+        foreach(string num in result)
+            buff.Append(num);
+            
+        if(buff[0] == '0')
+            return "0";
+        
+        return buff.ToString();
+        
+    }
+    
+    public class ReverseCompare :IComparer<string>
+    {
+        public int Compare(string x, string y)
+        {
+            StringBuilder xy = new StringBuilder();
+            xy.Append(x+y);
+            StringBuilder yx = new StringBuilder();
+            yx.Append(y+x);
+            
+            return(new CaseInsensitiveComparer()).Compare(yx.ToString(), xy.ToString());
+            
+            
+        }
+        
+    }
+}
