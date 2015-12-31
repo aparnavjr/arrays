@@ -1,0 +1,55 @@
+static void doMergeSortOfArrays(int[][] arrays,
+										int k,
+											int n,
+												int[] output) {
+		ElementSort esort = new ElementSort();
+		PriorityQueue<ArrayElement> pq = new PriorityQueue<ArrayElement>(k, esort);
+ 
+		for(int i = 0; i < k; i++) {
+			pq.add(new ArrayElement(arrays[i][0], i, 0));
+		}
+ 
+		int count = 0;
+		int totalElements = k * n;
+		boolean[] finished = new boolean[k];
+ 
+		while(count < totalElements && !pq.isEmpty()) {
+			ArrayElement delArrEle = pq.poll();
+			int delElement = delArrEle.element;
+			int delArrIndex = delArrEle.arrIndex;
+			int delNextIndex = delArrEle.nextIndex;
+ 
+			output[count] = delElement;
+			count++;
+ 
+			if(delNextIndex + 1 == n) {
+				finished[delArrIndex] = true;
+			}
+ 
+			if((delNextIndex + 1) < n || finished[delArrIndex] == false) {
+				pq.add(new ArrayElement(arrays[delArrIndex][delNextIndex + 1], delArrIndex, delNextIndex + 1));
+			}
+		}
+	}
+}
+ 
+class ElementSort implements Comparator<ArrayElement> {
+	public int compare(ArrayElement ae1,
+							ArrayElement ae2) {
+		return ae1.element - ae2.element;
+	}
+}
+ 
+class ArrayElement {
+	public int element;
+	public int arrIndex;
+	public int nextIndex;
+ 
+	ArrayElement(int element, 
+					int arrIndex,
+						int nextIndex) {
+		this.element = element;
+		this.arrIndex = arrIndex;
+		this.nextIndex = nextIndex;
+	}
+}
