@@ -1,0 +1,36 @@
+public class Solution {
+    public int FindMin(int[] nums) {
+        
+        if(nums.Length == 0)
+            return 0;
+        
+        int start = 0;
+        int end = nums.Length-1;
+        
+        return helper(nums,0,end);
+        
+    }
+    
+    public int helper(int[] nums, int start, int end)
+    {
+        if(start == end)
+            return nums[start];
+            
+        if(end == start+1)
+            return Math.Min(nums[start], nums[end]);
+            
+         int mid = (end-start)/2+start;
+        
+        // not rotated
+        if(nums[start] < nums[end])
+            return nums[start];
+       
+        else if(nums[mid] == nums[start] || nums[mid] == nums[end])
+            return Math.Min(helper(nums,start,mid-1), helper(nums,mid+1,end));
+            
+         else if(nums[mid] >= nums[start])
+            return helper(nums,mid,end);
+        else
+            return helper(nums,start,mid);
+    }
+}
