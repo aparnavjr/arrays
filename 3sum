@@ -1,0 +1,56 @@
+public class Solution {
+    public IList<IList<int>> ThreeSum(int[] nums) {
+        
+        IList<IList<int>> result = new List<IList<int>>();
+        
+        int len = nums.Length;
+        
+        if(len == 0)
+            return result;
+            
+        HashSet<Tuple<int,int,int>> map = new HashSet<Tuple<int,int,int>>();
+        
+        Array.Sort(nums);
+        
+        int start =0;
+        
+        int end =0;
+        
+        for(int i = 0; i< nums.Length;i++)
+        {
+            start = i+1;
+            end = nums.Length -1;
+            
+            while(start < end)
+            {
+                 int substart = nums[start] + nums[i];
+                if(substart + nums[end] > 0)
+                    end --;
+                else if(substart + nums[end] < 0)
+                    start++;
+                else
+                {
+                    map.Add(Tuple.Create(nums[start], nums[i], nums[end]));
+                    start++;
+                    end--;
+                }
+            }
+            
+            
+            
+        }
+        
+        foreach(Tuple<int,int,int> tu in map)
+        {
+          List<int> temp = new List<int>();
+          temp.Add(tu.Item1);
+          temp.Add(tu.Item2);
+          temp.Add(tu.Item3);
+          
+          result.Add(temp.OrderBy(x=>x).ToList());
+        }
+        
+        return result;
+        
+    }
+}
