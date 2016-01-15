@@ -1,0 +1,63 @@
+public class MedianFinder {
+
+    // Adds a num into the data structure.
+    
+    SortedSet<double> min = new SortedSet<double>();
+    
+    SortedSet<double> max = new SortedSet<double>(new Comparr());
+    
+    int count = 0;
+    public void AddNum(double num) {
+        count++;
+        
+        if(max.Count == 0 || num < max.Max())
+        {
+            max.Add(num);
+        }
+        
+        else
+        {
+            min.Add(num);
+        }
+        
+        if(min.Count > max.Count)
+        {
+            double element = min.Min();
+          	min.Remove(element);
+            max.Add(element);
+        }
+        
+        if(max.Count > min.Count+1)
+        {
+            double element = max.Max();
+          	max.Remove(element);
+            min.Add(element);
+        }
+    }
+
+    // return the median of current data stream
+    public double FindMedian() {
+        
+        if(count%2==0)
+        {
+            return (max.Max()+min.Min())/2;
+        }
+        
+        else
+            return max.Max();
+        
+    }
+}
+
+public class Comparr :IComparer<double>
+{
+    public int Compare(Double x, Double y)
+    {
+        return Comparer<double>.Default.Compare(y,x);
+    }
+}
+
+// Your MedianFinder object will be instantiated and called as such:
+// MedianFinder mf = new MedianFinder();
+// mf.AddNum(1);
+// mf.FindMedian();
