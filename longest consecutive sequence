@@ -1,0 +1,43 @@
+public class Solution {
+    public int LongestConsecutive(int[] nums) {
+        
+        if(nums.Length == 0)
+            return 0;
+        
+        
+        int max = 1;
+        HashSet<int> map = new HashSet<int>();
+        
+        foreach(int num in nums)
+        {
+            map.Add(num);   
+        }
+        
+        foreach(int num in nums)
+        {
+            int left = num-1;
+            int right = num+1;
+            int count = 1; 
+            
+            while(map.Contains(left))
+            {
+                count++;
+                map.Remove(left);
+                left--;
+            }
+            
+            while(map.Contains(right))
+            {
+                count++;
+                map.Remove(right);
+                right++;
+            }
+            
+            max = Math.Max(max,count);
+            
+        }
+    
+        return max;    
+    }
+    
+}
